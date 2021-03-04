@@ -6,9 +6,11 @@ categories: jekyll update
 ---
 This post/blog is work in progress.
 
-The primary goal to make this post was to polish up my understanding why release consistency is failing the IRIW litmus test
+The primary goal of this post is to polish up my understanding why release consistency is failing the IRIW litmus test
 
-So what is release consistency? Let's have a look at the following example:
+To answer this question, lets first have a look what release consistency is. Imagine a cook is preparing food and on completion the cook notifies the customers the food is ready. As soon as the customers hear the cook, they go to the table and expect to food to be ready.
+
+Lets cast the example to code: A,B are global variables initialized as 0, and ra, rb are local variables.
 
 {% highlight java %}
 Thread1:
@@ -18,46 +20,44 @@ Thread1:
 Thread2:
     rb=B
     ra=A
-    If (rb==1 and ra==0) print(“violation”)
+    if (rb==1 and ra==0) print('violation')
 {% endhighlight %}
-    
-Can it be that “violation” gets printed with release consistency? If there is release consistency, “violation” can’t be printed. If a thread sees B=1, then it should also see A=1.
 
-Todo: add Graph
+To guarantee this code will behave as expected, we can use release consistency: a consistency model where loads are acquire-loads and stores are release-stores. For more information see the excellent post of Jeff Preshing: https://preshing.com/20120913/acquire-and-release-semantics/.
 
-Practical example: dinner. So the cook cooks dinner (A=1) and then signals that the food is read (B=1), if I hear the cook saying the dinner is ready (rb==1), then the dinner should be ready (ra==1). 
+In practice you do not want to convert all loads to acquire-loads and stores to release-stores. Even though on the X86 loads are acquire-loads and stores are release-stores, it will prevent a lot of compilizer optimizations. So you just want do convert them at points where data is being synchronized which in this case is on B. 
 
-This sounds very obvious but in a system where there are multiple versions of the data, data could get out of sync. For example a distributed system with multiple replicas of the data or a system with incoherent caches.
+In the below digraph a happens-before edge is established between the write of A=1 and the read of A=1 (remember that the happens before relation is transisitive) and therefor our example should work as expected.
 
-Release consistency is a consistency model where loads have acquire-semantics and stores have release-semantics. For more detailed information see the excellent blogpost of Jeff Preshing: https://preshing.com/20120913/acquire-and-release-semantics/
+![Release Consistency](/Images/release_consistency.png "Title")
 
-# Store release
-So we need to prevent that the 2 stores of thread 1 get reordered; this can be done by making B=1 a release store:
+# Implementing a release-store
 
+To implement the release-store of B, we can insert the following fences:
 {% highlight java %}
 A=1
-[LoadStore][StoreStore]
+[LoadStore]
+[StoreStore]
 B=1
 {% endhighlight %}
 
-In this case we only need to prevent the 2 stores from being reordered, so we can get rid of the [LoadStore].
+Since we only need to prevent the 2 stores from being reordered, [LoadStore] isn't strictly needed.
 
-In C++ you would use an atomic.store with memory_order_release and in Java you would use a VarHandle.setRelease.
+In C++ you would use an atomic.store with memory_order_release and in Java a VarHandle.setRelease.
 
 # Acquire load
-We also need to prevent the 2 loads from being reordered, this can be done by doing making r1=B an acquire load:
+To implement the acquire-load, we need to insert the following fences:
 
 {% highlight java %}
 r1=B 
-[LoadLoad][LoadStore]
+[LoadLoad]
+[LoadStore]
 r2=A
 {% endhighlight %}
 
 In this case we can get rid of the [LoadStore] fence since we only need to order 2 loads.
 
 In C++ you would use an atomic.load with memory_order_acquire and in Java you would use a VarHandle.getAcquire.
-
-Note: on the X86 loads are acquire-loads and stores are release-stores, so it just is a restriction on the compiler optimizations.
 
 ## IRIW Litmus Test
 Total Store Order (TSO), the memory model for the X86, is a relaxation of sequential consistency (SC) due to the existence of store buffers which can cause older stores to be reordered with newer loads to a different address. So instead of enforcing a total order over all loads and stores, it only requires a total order over the stores. In simple terms: it should not be possible that one CPUs sees one order of stores and a different CPU sees a different order. 
@@ -100,5 +100,10 @@ TSO and IRIW
 Cache coherence has the following 2 properties:
 There needs to be a total order over all loads and stores on a single address
 A load needs to see the most recent store before it in the memory order.
+
+ 
+
+ 
+This sounds very obvious but in a system where there are multiple versions of the data, data could get out of sync. For example a distributed system with multiple replicas of the data or a system with incoherent caches.
 
  
