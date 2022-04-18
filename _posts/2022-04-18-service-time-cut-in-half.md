@@ -8,7 +8,7 @@ categories: misc
 
 The goal of this post is to determine how the latency is going to be impacted 
 if the service time is going to be cut in half. I was watching a great [presentation](https://youtu.be/03GsLxVdVzU) 
-where he mentioned this [example](https://youtu.be/03GsLxVdVzU?t=341) and wanted 
+of Martin Thompson where he mentioned this [example](https://youtu.be/03GsLxVdVzU?t=341) example and wanted 
 to freshen up my queuing theory a bit and do some calculations.
 
 ## Lots of formulas
