@@ -15,7 +15,7 @@ to freshen up my queuing theory a bit and do some calculations.
 
 Let's first get some formulas out of the way.
 
-The latency as function of the utilization:
+The mean latency as function of the utilization:
 
 $$ R=\dfrac{1}{\mu(1-\rho)} $$
 
