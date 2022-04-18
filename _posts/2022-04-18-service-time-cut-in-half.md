@@ -19,7 +19,7 @@ The mean latency as function of the utilization:
 
 $$ R=\dfrac{1}{\mu(1-\rho)} $$
 
-- $$ R $$ is residency time
+- $$ R $$ is latency (residency time)
 - $$ \mu $$ is service rate
 - $$ \rho $$ is utilization
 
