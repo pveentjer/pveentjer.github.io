@@ -51,7 +51,7 @@ $$ \lambda = \dfrac{S}{\rho}$$
 
 In Martin's example he has 2 services: 
  - an unoptimized service with $$ S=0.1 $$ seconds.
- - an optimized service  $$ S=0.05 $$ seconds
+ - an optimized service with $$ S=0.05 $$ seconds
 
 To make it a bit more tangible let's plot latency curves as function as utilization for both services.
 
@@ -88,4 +88,4 @@ So we went from a latency of 1 second to 0.091 seconds which is an $$ \dfrac{1}{
 
 Martin's claim is that the latency improvement is 20x. But the results based on the above formulas don't agree with that. He makes a remark that the unit of processing is half the calculated latency, but I don't understand what he means or how this is relevant for the latency calculation. 
 
-I haven't enabled comments yet on this new website. So if you want to comment, send me a message on [Twitter])https://twitter.com/PeterVeentjer).
+I haven't configured comments yet on this new website. So if you want to comment, send me a message on [Twitter])https://twitter.com/PeterVeentjer).
