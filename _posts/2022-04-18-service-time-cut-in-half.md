@@ -53,7 +53,7 @@ In Martin's example he has 2 services:
  - an unoptimized service with $$ S=0.1 $$ seconds.
  - an optimized service with $$ S=0.05 $$ seconds
 
-To make it a bit more tangible let's plot latency curves as function as utilization for both services.
+To make it a bit more tangible let's plot latency curves as function of utilization for both services.
 
 ![utilization plot](/assets/utilization_plot.png)
 
