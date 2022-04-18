@@ -60,6 +60,8 @@ To make it a bit more tangible let's plot latency curves as function as utilizat
 - green: unoptimized service
 - blue: optimized service
 
+The x-axis is the utilization and the y-axis is the latency.
+
 The first thing we can calculate is the latency with a service time of 0.10 seconds and a utilization of 0.90:
 
 $$ R=\dfrac{S}{(1-\rho)}=\dfrac{0.10}{(1.0-0.90)}=1.0 $$ second.
