@@ -85,3 +85,5 @@ So we went from a latency of 1 second to 0.091 seconds which is an $$ \dfrac{1}{
 ## Discrepancy
 
 Martin's claim is that the latency improvement is 20x. But the results based on the above formulas don't agree with that. He makes a remark that the unit of processing is half the calculated latency, but I don't understand what he means or how this is relevant for the latency calculation. 
+
+
