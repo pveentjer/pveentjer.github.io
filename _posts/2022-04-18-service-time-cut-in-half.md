@@ -66,7 +66,7 @@ The first thing we can calculate is the latency with a service time of 0.10 seco
 
 $$ R=\dfrac{S}{(1-\rho)}=\dfrac{0.10}{(1.0-0.90)}=1.0 $$ second.
 
-The next part we need to determine is the arrival rate based on the utilization and service time. So with an service time of 0.10 and a utilization of 0.90 we get the following arrival rate:
+The next part we need to determine is the arrival rate based on the utilization and service time. So with a service time of 0.10 and a utilization of 0.90 we get the following arrival rate:
 
 $$ \lambda = \dfrac{S}{\rho} = \dfrac{0.1}{1-0.9} = 10 $$ requests/second.
 
