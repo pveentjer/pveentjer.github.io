@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What is the difference between sequential consistency and coherence"
+title: "What is the difference between sequential consistency and coherence?"
 categories: memory-models
 ---
 
