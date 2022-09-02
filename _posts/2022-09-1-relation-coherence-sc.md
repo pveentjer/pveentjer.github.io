@@ -60,5 +60,5 @@ CPU-4:
 
 Can it be that r1=1, r2=0, r3=1, r4=0? So can it be that the stores are seen in different orders? If a system is sequential consistent, then this can't happen since there needs to be a total order over all loads/stores; so either A=1 was first, or B=1 was first. But with a system that is coherent, the above is allowed since coherence doesn't say anything about loads/stores to different locations. 
 
-For an excellent read on this topic and a much more in depth explanation of the above, please check out [A Primer on Memory Consistency and Cache Coherence, Second Edition](https://www.morganclaypool.com/doi/10.2200/S00962ED2V01Y201910CAC049) 
+For an excellent read on this topic and a much more in depth explanation of the above, please check out [A Primer on Memory Consistency and Cache Coherence, Second Edition](https://www.morganclaypool.com/doi/10.2200/S00962ED2V01Y201910CAC049) which can be downloaded for free.
  
